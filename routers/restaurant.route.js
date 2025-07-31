@@ -7,6 +7,7 @@ import {
     restaurantByPhone,
     restaurantDelete,
     restaurantLocation,
+    restaurantUpdate,
 } from "../controllers/restaurant.controller.js";
 
 const restaurantRouter = express.Router();
@@ -18,7 +19,7 @@ restaurantRouter.route("/directory/:phoneNumber").get(restaurantByPhone);
 restaurantRouter.route("/cuisine/:cuisineName").get(restaurantByCousine);
 restaurantRouter.route("/location/:restaurantLocation").get(restaurantLocation);
 restaurantRouter.route("/delete/:restaurantId").delete(restaurantDelete)
-
+restaurantRouter.route("/update/:id").put(restaurantUpdate)
 
 
 export default restaurantRouter;
