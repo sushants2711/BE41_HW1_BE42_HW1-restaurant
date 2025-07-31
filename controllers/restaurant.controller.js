@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import restaurantModel from "../models/restaurant.model.js";
 
 export const addRestaurantController = async (req, res) => {
@@ -241,6 +242,56 @@ export const restaurantLocation = async (req, res) => {
                 message: "Data fetch successfully",
                 data: locationOfRestaurant
             });
+    } catch (error) {
+        return res
+            .status(500)
+            .json({
+                success: false,
+                message: "Internal Server Error",
+                error: error.message
+            })
+    }
+}
+
+export const restaurantDelete = async (req, res) => {
+    try {
+        const { restaurantId } = req.params;
+
+        if (!restaurantId) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Restaurant Id is missing"
+                });
+        };
+
+        if (!mongoose.Types.ObjectId.isValid(restaurantId)) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Restaurant Id is missing"
+                });
+        };
+
+        const deleteRestaurant = await restaurantModel.findByIdAndDelete(restaurantId);
+
+        if (!deleteRestaurant) {
+            return res
+                .status(404)
+                .json({
+                    success: false,
+                    message: "Restaurant not exist"
+                });
+        };
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: "Data deleted successfully"
+            })
     } catch (error) {
         return res
             .status(500)

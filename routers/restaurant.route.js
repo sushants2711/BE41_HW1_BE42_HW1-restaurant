@@ -5,6 +5,7 @@ import {
     restaurantByCousine,
     restaurantByName,
     restaurantByPhone,
+    restaurantDelete,
     restaurantLocation,
 } from "../controllers/restaurant.controller.js";
 
@@ -16,4 +17,8 @@ restaurantRouter.route("/:restaurantName").get(restaurantByName);
 restaurantRouter.route("/directory/:phoneNumber").get(restaurantByPhone);
 restaurantRouter.route("/cuisine/:cuisineName").get(restaurantByCousine);
 restaurantRouter.route("/location/:restaurantLocation").get(restaurantLocation);
+restaurantRouter.route("/delete/:restaurantId").delete(restaurantDelete)
+
+
+
 export default restaurantRouter;
